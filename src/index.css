@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-[#060810] text-[#e2e8f0] min-h-screen overflow-x-hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── GRID LINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+@layer components {
+  .ambient {
+    @apply fixed pointer-events-none z-0 rounded-full blur-[80px];
+  }
+  .ambient-1 {
+    @apply w-[600px] h-[400px] bg-[rgba(0,212,255,0.06)] -top-[100px] -right-[100px];
+  }
+  .ambient-2 {
+    @apply w-[500px] h-[500px] bg-[rgba(0,229,160,0.05)] -bottom-[150px] -left-[100px];
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-sans text-sm font-semibold cursor-pointer border-none transition-all duration-200 no-underline;
+  }
+  .btn-primary {
+    @apply bg-[#00d4ff] text-black hover:bg-[#00eeff] hover:shadow-[0_0_20px_rgba(0,212,255,0.4)];
+  }
+  .btn-ghost {
+    @apply bg-transparent text-[#e2e8f0] border border-[#1e2d40] hover:border-[#00d4ff] hover:text-[#00d4ff];
+  }
+  .btn-danger {
+    @apply bg-[#ff4d6d] text-white hover:bg-[#ff6b85];
+  }
+  .btn-green {
+    @apply bg-[#00e5a0] text-black hover:bg-[#00ffb3] hover:shadow-[0_0_20px_rgba(0,229,160,0.4)];
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .form-input {
+    @apply w-full px-3.5 py-2.5 bg-[#161b27] border border-[#1e2d40] rounded-lg text-[#e2e8f0] font-sans text-sm outline-none transition-colors duration-200 focus:border-[#00d4ff];
+  }
+}
+
+@layer utilities {
+  .animate-timerPulse {
+    animation: timerPulse 1s infinite;
+  }
+  .animate-recordPulse {
+    animation: recordPulse 1.5s infinite;
+  }
+  .animate-toastIn {
+    animation: toastIn 0.3s ease;
+  }
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes recordPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,136,0,0.5); }
+  70% { box-shadow: 0 0 0 20px rgba(255,136,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,136,0,0); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e2d40; border-radius: 2px; }

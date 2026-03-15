@@ -1,0 +1,5 @@
+{
+  "name": "VoiceNote AI",
+  "description": "Meeting transcription and intelligence app",
+  "requestFramePermissions": ["microphone"]
+}
